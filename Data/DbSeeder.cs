@@ -1,3 +1,5 @@
+using System;
+using System.IO;
 using System.Linq;
 using TouristGuide.Models;
 
@@ -5,6 +7,9 @@ namespace TouristGuide.Data;
 
 public static class DbSeeder
 {
+    private static string ImgPath(string name) =>
+        Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Images", name);
+
     public static void Seed()
     {
         using var db = new AppDbContext();
@@ -16,17 +21,17 @@ public static class DbSeeder
         {
             Name = "Москва",
             Region = "Московская область",
-            Population = 13100000,
-            History = "Москва — столица России, основана в 1147 году.",
-            CoatOfArms = "https://upload.wikimedia.org/wikipedia/commons/thumb/d/da/Coat_of_Arms_of_Moscow.svg/200px-Coat_of_Arms_of_Moscow.svg.png",
-            Photo = "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/Moscow_Kremlin_from_Bolshoy_Kamenny_bridge_%28cropped%29.jpg/800px-Moscow_Kremlin_from_Bolshoy_Kamenny_bridge_%28cropped%29.jpg"
+            Population = 13274285,
+            History = "Москва — столица России, основана в 1147 году князем Юрием Долгоруким. Крупнейший город страны.",
+            CoatOfArms = ImgPath("coat-moscow.jpg"),
+            Photo = ImgPath("moscow.jpg")
         };
         moscow.Attractions.Add(new Attraction
         {
             Name = "Красная площадь",
             Description = "Главная площадь Москвы и России.",
-            History = "Известна с XV века, название закрепилось в XVII веке.",
-            Photo = "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f7/Red_Square_Moscow.jpg/800px-Red_Square_Moscow.jpg",
+            History = "Известна с XV века. Расположены Кремль, храм Василия Блаженного, мавзолей Ленина и ГУМ.",
+            Photo = ImgPath("red-square.jpg"),
             WorkingHours = "Круглосуточно",
             Price = "Бесплатно"
         });
@@ -34,8 +39,8 @@ public static class DbSeeder
         {
             Name = "Третьяковская галерея",
             Description = "Крупнейший музей русского изобразительного искусства.",
-            History = "Основана в 1856 году купцом Павлом Третьяковым.",
-            Photo = "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ee/Tretyakov_Gallery%2C_Moscow%2C_Russia.jpg/800px-Tretyakov_Gallery%2C_Moscow%2C_Russia.jpg",
+            History = "Основана в 1856 году купцом Павлом Третьяковым. Более 200 000 произведений.",
+            Photo = ImgPath("tretyakov.jpg"),
             WorkingHours = "Вт-Вс 10:00-18:00, Чт 10:00-21:00",
             Price = "500 руб."
         });
@@ -44,17 +49,17 @@ public static class DbSeeder
         {
             Name = "Санкт-Петербург",
             Region = "Ленинградская область",
-            Population = 5600000,
-            History = "Санкт-Петербург основан Петром I в 1703 году.",
-            CoatOfArms = "https://upload.wikimedia.org/wikipedia/commons/thumb/8/85/Coat_of_Arms_of_Saint_Petersburg_%282003%29.svg/200px-Coat_of_Arms_of_Saint_Petersburg_%282003%29.svg.png",
-            Photo = "https://upload.wikimedia.org/wikipedia/commons/thumb/7/72/Saint_Petersburg_Montage_2023.jpg/800px-Saint_Petersburg_Montage_2023.jpg"
+            Population = 5652922,
+            History = "Основан Петром I в 1703 году. Был столицей Российской империи более двухсот лет.",
+            CoatOfArms = ImgPath("coat-spb.jpg"),
+            Photo = ImgPath("spb.jpg")
         };
         spb.Attractions.Add(new Attraction
         {
             Name = "Эрмитаж",
             Description = "Один из крупнейших музеев мира.",
-            History = "Основан в 1764 году Екатериной II.",
-            Photo = "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Hermitage_Museum%2C_Saint_Petersburg%2C_Russia.jpg/800px-Hermitage_Museum%2C_Saint_Petersburg%2C_Russia.jpg",
+            History = "Основан в 1764 году Екатериной II. Около 3 миллионов экспонатов.",
+            Photo = ImgPath("hermitage.jpg"),
             WorkingHours = "Вт-Вс 10:30-18:00, Ср 10:30-21:00",
             Price = "500 руб."
         });
@@ -62,8 +67,8 @@ public static class DbSeeder
         {
             Name = "Петропавловская крепость",
             Description = "Историческое ядро Санкт-Петербурга.",
-            History = "Заложена 27 мая 1703 года.",
-            Photo = "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Peter_and_Paul_Fortress_in_SPB_03.jpg/800px-Peter_and_Paul_Fortress_in_SPB_03.jpg",
+            History = "Заложена 27 мая 1703 года. Старейшее сооружение города.",
+            Photo = ImgPath("peter-paul.jpg"),
             WorkingHours = "Ежедневно 10:00-18:00",
             Price = "350 руб."
         });
@@ -72,19 +77,19 @@ public static class DbSeeder
         {
             Name = "Казань",
             Region = "Республика Татарстан",
-            Population = 1308000,
-            History = "Казань — столица Республики Татарстан, основана в 1005 году.",
-            CoatOfArms = "https://upload.wikimedia.org/wikipedia/commons/thumb/6/60/Coat_of_Arms_of_Kazan.svg/200px-Coat_of_Arms_of_Kazan.svg.png",
-            Photo = "https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Kazan_city_montage_2023.jpg/800px-Kazan_city_montage_2023.jpg"
+            Population = 1329825,
+            History = "Столица Республики Татарстан, основана в 1005 году. Крупный культурный центр России.",
+            CoatOfArms = ImgPath("coat-kazan.jpg"),
+            Photo = ImgPath("kazan.jpg")
         };
         kazan.Attractions.Add(new Attraction
         {
             Name = "Казанский Кремль",
             Description = "Древнейшая часть Казани, объект ЮНЕСКО.",
-            History = "Построен в X-XVI веках.",
-            Photo = "https://upload.wikimedia.org/wikipedia/commons/thumb/6/62/Kazan_Kremlin_exterior_view.jpg/800px-Kazan_Kremlin_exterior_view.jpg",
+            History = "Построен в X-XVI веках. Включает мечеть Кул-Шариф и Благовещенский собор.",
+            Photo = ImgPath("kazan-kremlin.jpg"),
             WorkingHours = "Ежедневно 8:00-18:00",
-            Price = "Бесплатно (территория)"
+            Price = "Бесплатно"
         });
 
         db.Cities.AddRange(moscow, spb, kazan);

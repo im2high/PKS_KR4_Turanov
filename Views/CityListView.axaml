@@ -1,13 +1,18 @@
 <UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:conv="using:TouristGuide.Converters"
              x:Class="TouristGuide.Views.CityListView">
 
+    <UserControl.Resources>
+        <conv:BitmapConverter x:Key="BitmapConv"/>
+    </UserControl.Resources>
+
     <DockPanel Margin="16">
-        <TextBlock DockPanel.Dock="Top" Text="🌍 Туристический путеводитель"
+        <TextBlock DockPanel.Dock="Top" Text="Туристический путеводитель"
                    FontSize="24" FontWeight="Bold" Margin="0,0,0,12"/>
 
         <TextBox DockPanel.Dock="Top"
-                 Watermark="🔍 Поиск по названию города..."
+                 PlaceholderText="Поиск по названию города..."
                  Text="{Binding SearchText, Mode=TwoWay}"
                  Margin="0,0,0,12"/>
 
@@ -21,7 +26,7 @@
                                 HorizontalContentAlignment="Left"
                                 Margin="0,4" Padding="12">
                             <StackPanel Orientation="Horizontal" Spacing="16">
-                                <Image Source="{Binding Photo}"
+                                <Image Source="{Binding Photo, Converter={StaticResource BitmapConv}}"
                                        Width="120" Height="80"
                                        Stretch="UniformToFill"/>
                                 <StackPanel VerticalAlignment="Center" Spacing="4">

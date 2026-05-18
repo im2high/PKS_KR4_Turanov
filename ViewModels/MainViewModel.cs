@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
@@ -21,7 +22,11 @@ public class MainViewModel : ViewModelBase
     public string SearchText
     {
         get => _searchText;
-        set { SetField(ref _searchText, value); LoadCities(); }
+        set
+        {
+            if (SetField(ref _searchText, value))
+                FilterCities();
+        }
     }
 
     public ObservableCollection<City> Cities { get; } = new();
@@ -32,26 +37,38 @@ public class MainViewModel : ViewModelBase
     public ICommand BackToCityCommand { get; }
 
     private City? _selectedCity;
+    private List<City> _allCities = new();
 
     public MainViewModel()
     {
         OpenCityCommand = new RelayCommand<City>(OpenCity);
         OpenAttractionCommand = new RelayCommand<Attraction>(OpenAttraction);
         BackToListCommand = new RelayCommand(_ => CurrentView = this);
-        BackToCityCommand = new RelayCommand(_ => { if (_selectedCity != null) OpenCity(_selectedCity); });
+        BackToCityCommand = new RelayCommand(_ =>
+        {
+            if (_selectedCity != null) OpenCity(_selectedCity);
+        });
 
-        LoadCities();
+        LoadAllCities();
         CurrentView = this;
     }
 
-    private void LoadCities()
+    private void LoadAllCities()
+    {
+        using var db = new AppDbContext();
+        _allCities = db.Cities.ToList();
+        FilterCities();
+    }
+
+    private void FilterCities()
     {
         Cities.Clear();
-        using var db = new AppDbContext();
-        var query = db.Cities.AsQueryable();
-        if (!string.IsNullOrWhiteSpace(SearchText))
-            query = query.Where(c => c.Name.ToLower().Contains(SearchText.ToLower()));
-        foreach (var c in query.ToList())
+        var search = SearchText?.Trim() ?? string.Empty;
+        var filtered = string.IsNullOrEmpty(search)
+            ? _allCities
+            : _allCities.Where(c => c.Name.Contains(search, StringComparison.OrdinalIgnoreCase)).ToList();
+
+        foreach (var c in filtered)
             Cities.Add(c);
     }
 
