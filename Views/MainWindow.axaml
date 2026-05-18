@@ -1,0 +1,22 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:TouristGuide.ViewModels"
+        xmlns:views="using:TouristGuide.Views"
+        x:Class="TouristGuide.Views.MainWindow"
+        Title="Туристический путеводитель"
+        Width="900" Height="700">
+
+    <Window.DataTemplates>
+        <DataTemplate DataType="vm:MainViewModel">
+            <views:CityListView />
+        </DataTemplate>
+        <DataTemplate DataType="vm:CityDetailViewModel">
+            <views:CityDetailView />
+        </DataTemplate>
+        <DataTemplate DataType="vm:AttractionDetailViewModel">
+            <views:AttractionDetailView />
+        </DataTemplate>
+    </Window.DataTemplates>
+
+    <ContentControl Content="{Binding CurrentView}" />
+</Window>

@@ -1,0 +1,50 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="TouristGuide.Views.CityDetailView">
+
+    <DockPanel Margin="16">
+        <Button DockPanel.Dock="Top" Content="← Назад к списку"
+                Command="{Binding Main.BackToListCommand}"
+                Margin="0,0,0,12" HorizontalAlignment="Left"/>
+
+        <ScrollViewer>
+            <StackPanel Spacing="12">
+                <TextBlock Text="{Binding City.Name}" FontSize="28" FontWeight="Bold"/>
+
+                <StackPanel Orientation="Horizontal" Spacing="16">
+                    <Image Source="{Binding City.Photo}" Width="300" Height="200" Stretch="UniformToFill"/>
+                    <Image Source="{Binding City.CoatOfArms}" Width="100" Height="120" Stretch="Uniform"/>
+                </StackPanel>
+
+                <TextBlock Text="{Binding City.Region, StringFormat='Регион: {0}'}" FontSize="14"/>
+                <TextBlock Text="{Binding City.Population, StringFormat='Население: {0:N0}'}" FontSize="14"/>
+
+                <TextBlock Text="История" FontSize="18" FontWeight="SemiBold" Margin="0,8,0,0"/>
+                <TextBlock Text="{Binding City.History}" TextWrapping="Wrap"/>
+
+                <TextBlock Text="Достопримечательности" FontSize="20" FontWeight="Bold" Margin="0,16,0,4"/>
+
+                <ItemsControl ItemsSource="{Binding Attractions}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Button Command="{Binding $parent[UserControl].DataContext.Main.OpenAttractionCommand}"
+                                    CommandParameter="{Binding}"
+                                    HorizontalAlignment="Stretch"
+                                    HorizontalContentAlignment="Left"
+                                    Margin="0,4" Padding="12">
+                                <StackPanel Orientation="Horizontal" Spacing="12">
+                                    <Image Source="{Binding Photo}" Width="100" Height="70" Stretch="UniformToFill"/>
+                                    <StackPanel VerticalAlignment="Center" Spacing="2">
+                                        <TextBlock Text="{Binding Name}" FontSize="16" FontWeight="SemiBold"/>
+                                        <TextBlock Text="{Binding Description}" Foreground="Gray" TextWrapping="Wrap"
+                                                   MaxWidth="500"/>
+                                    </StackPanel>
+                                </StackPanel>
+                            </Button>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </StackPanel>
+        </ScrollViewer>
+    </DockPanel>
+</UserControl>

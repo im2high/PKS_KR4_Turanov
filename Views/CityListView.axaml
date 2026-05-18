@@ -1,0 +1,39 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="TouristGuide.Views.CityListView">
+
+    <DockPanel Margin="16">
+        <TextBlock DockPanel.Dock="Top" Text="🌍 Туристический путеводитель"
+                   FontSize="24" FontWeight="Bold" Margin="0,0,0,12"/>
+
+        <TextBox DockPanel.Dock="Top"
+                 Watermark="🔍 Поиск по названию города..."
+                 Text="{Binding SearchText, Mode=TwoWay}"
+                 Margin="0,0,0,12"/>
+
+        <ScrollViewer>
+            <ItemsControl ItemsSource="{Binding Cities}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Button Command="{Binding $parent[UserControl].DataContext.OpenCityCommand}"
+                                CommandParameter="{Binding}"
+                                HorizontalAlignment="Stretch"
+                                HorizontalContentAlignment="Left"
+                                Margin="0,4" Padding="12">
+                            <StackPanel Orientation="Horizontal" Spacing="16">
+                                <Image Source="{Binding Photo}"
+                                       Width="120" Height="80"
+                                       Stretch="UniformToFill"/>
+                                <StackPanel VerticalAlignment="Center" Spacing="4">
+                                    <TextBlock Text="{Binding Name}" FontSize="18" FontWeight="Bold"/>
+                                    <TextBlock Text="{Binding Region}" Foreground="Gray"/>
+                                    <TextBlock Text="{Binding Population, StringFormat='Население: {0:N0}'}" Foreground="Gray"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </Button>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+    </DockPanel>
+</UserControl>

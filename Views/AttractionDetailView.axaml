@@ -1,0 +1,26 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="TouristGuide.Views.AttractionDetailView">
+
+    <DockPanel Margin="16">
+        <Button DockPanel.Dock="Top" Content="← Назад к городу"
+                Command="{Binding Main.BackToCityCommand}"
+                Margin="0,0,0,12" HorizontalAlignment="Left"/>
+
+        <ScrollViewer>
+            <StackPanel Spacing="12">
+                <TextBlock Text="{Binding Attraction.Name}" FontSize="28" FontWeight="Bold"/>
+
+                <Image Source="{Binding Attraction.Photo}"
+                       Width="500" Height="300" Stretch="UniformToFill"
+                       HorizontalAlignment="Left"/>
+
+                <TextBlock Text="История" FontSize="18" FontWeight="SemiBold"/>
+                <TextBlock Text="{Binding Attraction.History}" TextWrapping="Wrap"/>
+
+                <TextBlock Text="{Binding Attraction.WorkingHours, StringFormat='🕐 Часы работы: {0}'}" FontSize="14"/>
+                <TextBlock Text="{Binding Attraction.Price, StringFormat='💰 Стоимость: {0}'}" FontSize="14"/>
+            </StackPanel>
+        </ScrollViewer>
+    </DockPanel>
+</UserControl>
